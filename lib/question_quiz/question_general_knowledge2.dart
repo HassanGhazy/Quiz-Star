@@ -389,7 +389,7 @@ class _QuestionGeneralKnowledgeState extends State<QuestionGeneralKnowledge> {
           children: <Widget>[
             Icon(icon, color: Colors.amber),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
             ),
             Text(title),
           ],
@@ -409,7 +409,7 @@ class _QuestionGeneralKnowledgeState extends State<QuestionGeneralKnowledge> {
     IconData categoryIcon = routeArgs['icon'];
 
     return Scaffold(
-      appBar: buildAppbar(categoryTitle, categoryIcon),
+      appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
       body: (index < 10)
           ? Quiz(
               answerQuestion: answerQuestion,

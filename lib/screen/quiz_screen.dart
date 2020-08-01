@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_star/my_Icons/my_icon_icons.dart';
+import 'package:video_player/video_player.dart';
 import '../question_quiz/question_tech.dart';
 import '../question_quiz/question_sciance.dart';
 import '../question_quiz/question_general_knowledge2.dart';
 import '../question_quiz/questions_art.dart';
-
-import '../my_Icons/icon2_icons.dart';
-import '../my_Icons/icon3_icons.dart';
-import '../my_Icons/icon1_icons.dart';
-import '../my_Icons/icon4_icons.dart';
 
 class QuizScreen extends StatefulWidget {
   static const routeName = '/';
@@ -20,7 +17,7 @@ Widget _buildAppbar() {
   return AppBar(
     title: Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: Text(
+      child: const Text(
         'Quiz Star',
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -39,18 +36,29 @@ Widget _buildAppbar() {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller =
+        VideoPlayerController.asset('asset/videos/start_sound_button.mp3')
+          ..initialize().then((_) {});
+  }
+
   Widget _buildQuizScreenLandScape(
       BuildContext ctx, String title, IconData icon, String route) {
     final mediaQuery = MediaQuery.of(ctx);
     return Center(
       child: Container(
-        padding: EdgeInsets.only(left: 15),
+        padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Theme.of(ctx).primaryColor,
         ),
         width: mediaQuery.size.width * .45,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
@@ -79,6 +87,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           ),
                         ),
                         onPressed: () => setState(() {
+                          _controller.play();
                           Navigator.of(context)
                               .pushReplacementNamed(route, arguments: {
                             'title': title,
@@ -119,7 +128,7 @@ class _QuizScreenState extends State<QuizScreen> {
           color: Theme.of(ctx).primaryColor,
         ),
         width: mediaQuery.size.width * .7,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             Container(
@@ -147,6 +156,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           ),
                         ),
                         onPressed: () => setState(() {
+                          _controller.play();
                           Navigator.of(context)
                               .pushReplacementNamed(route, arguments: {
                             'title': title,
@@ -177,14 +187,14 @@ class _QuizScreenState extends State<QuizScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _buildSelectedCategory(
-                ctx, 'Art and Literature', Icon1.create, QuestionArt.routeName),
-            _buildSelectedCategory(ctx, 'General Knowledge', Icon2.casino,
+            _buildSelectedCategory(ctx, 'Art and Literature', MyIcon.create,
+                QuestionArt.routeName),
+            _buildSelectedCategory(ctx, 'General Knowledge', MyIcon.casino,
                 QuestionGeneralKnowledge.routeName),
-            _buildSelectedCategory(ctx, 'Siance and Natural', Icon3.beaker,
+            _buildSelectedCategory(ctx, 'Siance and Natural', MyIcon.beaker,
                 QuestionSciance.routeName),
             _buildSelectedCategory(
-                ctx, 'Technology', Icon4.expeditedssl, QuestionTech.routeName),
+                ctx, 'Technology', MyIcon.expeditedssl, QuestionTech.routeName),
           ],
         ),
       ),

@@ -96,15 +96,6 @@ List<Map<String, Object>> questions = [
     ],
   },
   {
-    "questionText": "In aviation, what does UFO stand for?",
-    "answers": [
-      {'text': "Unified Flying Object", 'Score': 0},
-      {'text': "Unitary Flinging Obsession", 'Score': 0},
-      {'text': "United Flag Opposition", 'Score': 0},
-      {'text': "Unidentified Flying Object", 'Score': 10},
-    ],
-  },
-  {
     "questionText": "What kind of animal traditionally lives in a sty?",
     "answers": [
       {'text': "Cow", 'Score': 0},
@@ -121,15 +112,6 @@ List<Map<String, Object>> questions = [
       {'text': "Rewrap", 'Score': 0},
       {'text': "Repossess", 'Score': 0},
       {'text': "Retire", 'Score': 0},
-    ],
-  },
-  {
-    "questionText": "Which month has only 28 days (unless it's a leap year)?",
-    "answers": [
-      {'text': "March", 'Score': 0},
-      {'text': "September", 'Score': 0},
-      {'text': "June", 'Score': 0},
-      {'text': "Feburary", 'Score': 10},
     ],
   },
   {
@@ -162,9 +144,9 @@ List<Map<String, Object>> questions = [
       {'text': 'People who want to ban censorship altogether', 'Score': 0},
       {
         'text': 'People who want to prevent the use of modern machinery',
-        'Score': 0
-      },
-    ],
+        'Score': 0,
+      }
+    ]
   },
   {
     "questionText":
@@ -248,7 +230,7 @@ class _QuestionScianceState extends State<QuestionSciance> {
           children: <Widget>[
             Icon(icon, color: Colors.amber),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding:const EdgeInsets.symmetric(horizontal: 10),
             ),
             Text(title),
           ],
@@ -267,7 +249,7 @@ class _QuestionScianceState extends State<QuestionSciance> {
     String categoryTitle = routeArgs['title'] as String;
     IconData categoryIcon = routeArgs['icon'];
     return Scaffold(
-      appBar: buildAppbar(categoryTitle, categoryIcon),
+      appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
       body: (index < 10)
           ? Quiz(
               answerQuestion: answerQuestion,

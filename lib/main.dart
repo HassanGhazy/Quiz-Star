@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Quiz Star',
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(45, 65, 89, 1),
-        backgroundColor: Color.fromRGBO(36, 42, 64, 1),
+        primaryColor:const Color.fromRGBO(45, 65, 89, 1),
+        backgroundColor:const Color.fromRGBO(36, 42, 64, 1),
         fontFamily: 'Raleway',
       ),
       home: MyHomePage(title: 'Quiz Star'),

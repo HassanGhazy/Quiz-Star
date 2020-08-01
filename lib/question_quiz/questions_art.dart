@@ -4,7 +4,6 @@ import '../screen/result_screen.dart';
 
 import '../quiz.dart';
 
-
 class QuestionArt extends StatefulWidget {
   static const routeName = 'question-screen';
 
@@ -233,7 +232,7 @@ class _QuestionArtState extends State<QuestionArt> {
         children: <Widget>[
           Icon(icon, color: Colors.amber),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding:const EdgeInsets.symmetric(horizontal: 10),
           ),
           Text(title),
         ],
@@ -265,7 +264,7 @@ class _QuestionArtState extends State<QuestionArt> {
     IconData categoryIcon = routeArgs['icon'];
 
     return Scaffold(
-      appBar: buildAppbar(categoryTitle, categoryIcon),
+      appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
       body: (index < 10)
           ? Quiz(
               answerQuestion: answerQuestion,
