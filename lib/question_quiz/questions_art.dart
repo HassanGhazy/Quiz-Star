@@ -232,11 +232,12 @@ class _QuestionArtState extends State<QuestionArt> {
         children: <Widget>[
           Icon(icon, color: Colors.amber),
           Padding(
-            padding:const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
           ),
           Text(title),
         ],
       ),
+      automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(
             icon: Icon(Icons.close),
@@ -256,6 +257,43 @@ class _QuestionArtState extends State<QuestionArt> {
     });
   }
 
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context).maybePop();
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Yes"),
+      onPressed: () {
+        Navigator.of(context).pushReplacementNamed(QuizScreen.routeName);
+        Navigator.pushNamedAndRemoveUntil(
+            context, "/newRouteName", (r) => false);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Alert"),
+      content: Text("Are you sure you want complete this quiz? "),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final routeArgs =
@@ -263,15 +301,18 @@ class _QuestionArtState extends State<QuestionArt> {
     String categoryTitle = routeArgs['title'];
     IconData categoryIcon = routeArgs['icon'];
 
-    return Scaffold(
-      appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
-      body: (index < 10)
-          ? Quiz(
-              answerQuestion: answerQuestion,
-              questions: questionshuffle,
-              index: index)
-          : Result(rightAnswer, 10),
-      backgroundColor: Theme.of(context).backgroundColor,
+    return WillPopScope(
+      child: Scaffold(
+        appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
+        body: (index < 10)
+            ? Quiz(
+                answerQuestion: answerQuestion,
+                questions: questionshuffle,
+                index: index)
+            : Result(rightAnswer, 10),
+        backgroundColor: Theme.of(context).backgroundColor,
+      ),
+      onWillPop: () => showAlertDialog(context),
     );
   }
 }

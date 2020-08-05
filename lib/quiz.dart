@@ -15,15 +15,16 @@ class Quiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Column(
       // mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Questions(
-          questions[index]['questionText'],
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
+        SizedBox(
+          height: (mediaQuery.size.height - mediaQuery.padding.top) * .25,
+          child: Questions(
+            questions[index]['questionText'],
+          ),
         ),
         ...(questions[index]['answers'] as List<Map<String, Object>>)
             .map((answer) {

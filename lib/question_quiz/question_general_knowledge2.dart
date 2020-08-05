@@ -360,6 +360,41 @@ List<Map<String, Object>> questions = [
     ],
   },
 ];
+showAlertDialog(BuildContext context) {
+  // set up the buttons
+
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed: () {
+      Navigator.of(context).maybePop();
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("Yes"),
+    onPressed: () {
+      Navigator.of(context).pushReplacementNamed(QuizScreen.routeName);
+      Navigator.pushNamedAndRemoveUntil(context, "/newRouteName", (r) => false);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text("Are you sure you want complete this quiz? "),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 
 class _QuestionGeneralKnowledgeState extends State<QuestionGeneralKnowledge> {
   int index = 0;
@@ -394,6 +429,7 @@ class _QuestionGeneralKnowledgeState extends State<QuestionGeneralKnowledge> {
             Text(title),
           ],
         ),
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
@@ -408,15 +444,18 @@ class _QuestionGeneralKnowledgeState extends State<QuestionGeneralKnowledge> {
     String categoryTitle = routeArgs['title'] as String;
     IconData categoryIcon = routeArgs['icon'];
 
-    return Scaffold(
-      appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
-      body: (index < 10)
-          ? Quiz(
-              answerQuestion: answerQuestion,
-              questions: questionshuffle,
-              index: index)
-          : Result(rightAnswer, 10),
-      backgroundColor: Theme.of(context).backgroundColor,
+    return WillPopScope(
+      child: Scaffold(
+        appBar: (index < 10) ? buildAppbar(categoryTitle, categoryIcon) : null,
+        body: (index < 10)
+            ? Quiz(
+                answerQuestion: answerQuestion,
+                questions: questionshuffle,
+                index: index)
+            : Result(rightAnswer, 10),
+        backgroundColor: Theme.of(context).backgroundColor,
+      ),
+      onWillPop: () => showAlertDialog(context),
     );
   }
 }

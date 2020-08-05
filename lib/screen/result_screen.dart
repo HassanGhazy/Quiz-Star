@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:quiz_star/my_Icons/my_icon_icons.dart';
@@ -130,11 +129,14 @@ class _ResultState extends State<Result> {
                       fontWeight: FontWeight.bold),
                 ),
                 Padding(padding: const EdgeInsets.all(10)),
-                const Text(
-                  'Quiz Complete Successfully.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: const Text(
+                    'Quiz Complete Successfully.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
                   ),
                 ),
                 Padding(padding: const EdgeInsets.all(10)),
@@ -245,19 +247,20 @@ class _ResultState extends State<Result> {
 
     @override
     void dispose() {
-      super.dispose();
       _controller.dispose();
+      super.dispose();
     }
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () => setState(() {
-              Navigator.of(context).pushReplacementNamed(QuizScreen.routeName);
+              Navigator.of(context).pop(QuizScreen.routeName);
             }),
           )
         ],
@@ -271,21 +274,23 @@ class _ResultState extends State<Result> {
                   color: const Color.fromRGBO(206, 220, 231, 1),
                 ),
                 height: mediaQuery.size.height * .9,
-                width: mediaQuery.size.width * .8,
+                width: mediaQuery.size.width * .6,
                 child: ListView(
                   children: <Widget>[_buildResult()],
                 ),
               ),
             )
-          : Container(
-              margin: const EdgeInsets.all(65),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: const Color.fromRGBO(206, 220, 231, 1),
+          : Center(
+              child: Container(
+                height: mediaQuery.size.height * .6,
+                width: mediaQuery.size.width * .85,
+                //  margin: const EdgeInsets.all(65),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: const Color.fromRGBO(206, 220, 231, 1),
+                ),
+                child: _buildResult(),
               ),
-              height: mediaQuery.size.height * .6,
-              width: mediaQuery.size.width * .8,
-              child: _buildResult(),
             ),
       backgroundColor: Theme.of(context).backgroundColor,
     );

@@ -11,7 +11,7 @@ class Questions extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style:const TextStyle(
-            fontSize: 20, color: Colors.white, fontFamily: 'RobotoCondensed'),
+            fontSize: 22, color: Colors.white, fontFamily: 'RobotoCondensed'),
       ),
     );
   }

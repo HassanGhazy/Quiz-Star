@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Quiz Star',
       theme: ThemeData(
-        primaryColor:const Color.fromRGBO(45, 65, 89, 1),
-        backgroundColor:const Color.fromRGBO(36, 42, 64, 1),
+        primaryColor: const Color.fromRGBO(45, 65, 89, 1),
+        backgroundColor: const Color.fromRGBO(36, 42, 64, 1),
         fontFamily: 'Raleway',
       ),
       home: MyHomePage(title: 'Quiz Star'),
@@ -34,16 +34,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePage extends StatelessWidget {
+  MyHomePage({String title});
   @override
   Widget build(BuildContext context) {
     return QuizScreen();
